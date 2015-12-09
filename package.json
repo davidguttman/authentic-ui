@@ -1,0 +1,37 @@
+{
+  "name": "authentic-ui",
+  "version": "0.0.0",
+  "description": "Authentic UI is a set of client side views that use authentic-client to provide an easy signup and authentication flow.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:davidguttman/authentic-ui.git"
+  },
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "example": "npm run example-server & npm run example-client",
+    "example-server": "node example/server.js",
+    "example-client": "wzrd example/index.js",
+    "test": "standard"
+  },
+  "keywords": ["authentication", "authentic", "auth"],
+  "contributors": [
+    "David Guttman <david@guttman.io>",
+    "Tyler Bushnell <wunderlinks@gmail.com>"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "authentic-server": "^0.4.0",
+    "browserify": "^12.0.1",
+    "standard": "^5.4.1",
+    "wzrd": "*"
+  },
+  "dependencies": {
+    "authentic-client": "^0.2.0",
+    "hyperscript": "^1.4.7",
+    "wildemitter": "^1.2.0",
+    "xtend": "^4.0.1"
+  }
+}
