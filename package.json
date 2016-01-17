@@ -1,6 +1,6 @@
 {
   "name": "authentic-ui",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Authentic UI is a set of client side views that use authentic-client to provide an easy signup and authentication flow.",
   "main": "index.js",
   "repository": {
@@ -16,7 +16,11 @@
     "example-client": "wzrd example/index.js",
     "test": "standard"
   },
-  "keywords": ["authentication", "authentic", "auth"],
+  "keywords": [
+    "authentication",
+    "authentic",
+    "auth"
+  ],
   "contributors": [
     "David Guttman <david@guttman.io>",
     "Tyler Bushnell <wunderlinks@gmail.com>"
