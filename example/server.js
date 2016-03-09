@@ -15,4 +15,8 @@ var auth = Authentic({
   sendEmail: function (opts, cb) { console.log(opts); cb() }
 })
 
-http.createServer(auth).listen(1337)
+http.createServer(function (req, res) {
+  setTimeout(function () {
+    auth(req, res)
+  }, 1000)
+}).listen(1337)
