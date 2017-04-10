@@ -41,7 +41,10 @@ function runRoutes (el) {
 }
 
 function loginRoute (el) {
-  if (aui.authToken()) return window.location.hash = '/protected'
+  if (aui.authToken()) {
+    window.location.hash = '/protected'
+    return
+  }
 
   var form = aui.login(onLogin)
   el.appendChild(form)
@@ -104,7 +107,7 @@ function logoutRoute (el) {
 
 function protectedRoute (el) {
   if (aui.authToken()) {
-    el.innerHTML = 'You\'re logged in'
+    el.innerHTML = "You're logged in"
     aui.get('/example/api.json', function (err, resp) {
       if (err) return console.error(err)
       el.innerHTML += '<p><code>' + resp.message + '</code></p>'
