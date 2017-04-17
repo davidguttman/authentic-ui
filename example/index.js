@@ -89,11 +89,10 @@ function changePasswordRoute (el, appState) {
   var query = qs.parse(window.location.search.slice(1))
   var opts = {
     email: query.email,
-    changeToken: query.changeToken,
-    confirmDelay: 5000
+    changeToken: query.changeToken
   }
 
-  var conf = aui.changePassword(opts, onLogin)
+  var conf = aui.changePassword(opts, function () { setTimeout(onLogin, 5000) })
   el.appendChild(conf)
 }
 
