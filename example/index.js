@@ -66,11 +66,10 @@ function confirmRoute (el) {
 
   var opts = {
     email: query.email,
-    confirmToken: query.confirmToken,
-    confirmDelay: 5000
+    confirmToken: query.confirmToken
   }
 
-  var conf = aui.confirm(opts, onLogin)
+  var conf = aui.confirm(opts, function () { setTimeout(onLogin, 5000) })
   el.appendChild(conf)
 }
 
