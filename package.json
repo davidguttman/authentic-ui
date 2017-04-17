@@ -35,7 +35,6 @@
   "dependencies": {
     "authentic-client": "^0.2.0",
     "csjs": "^1.1.0",
-    "hyperscript": "^1.4.7",
     "insert-css": "^2.0.0",
     "lodash.find": "^4.6.0",
     "wildemitter": "^1.2.0",
