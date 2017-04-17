@@ -41,7 +41,10 @@ function runRoutes (el) {
 }
 
 function loginRoute (el) {
-  if (aui.authToken()) return window.location.hash = '/protected'
+  if (aui.authToken()) {
+    window.location.hash = '/protected'
+    return
+  }
 
   var form = aui.login(onLogin)
   el.appendChild(form)
@@ -63,11 +66,10 @@ function confirmRoute (el) {
 
   var opts = {
     email: query.email,
-    confirmToken: query.confirmToken,
-    confirmDelay: 5000
+    confirmToken: query.confirmToken
   }
 
-  var conf = aui.confirm(opts, onLogin)
+  var conf = aui.confirm(opts, function () { setTimeout(onLogin, 5000) })
   el.appendChild(conf)
 }
 
@@ -86,11 +88,10 @@ function changePasswordRoute (el, appState) {
   var query = qs.parse(window.location.search.slice(1))
   var opts = {
     email: query.email,
-    changeToken: query.changeToken,
-    confirmDelay: 5000
+    changeToken: query.changeToken
   }
 
-  var conf = aui.changePassword(opts, onLogin)
+  var conf = aui.changePassword(opts, function () { setTimeout(onLogin, 5000) })
   el.appendChild(conf)
 }
 
@@ -104,7 +105,7 @@ function logoutRoute (el) {
 
 function protectedRoute (el) {
   if (aui.authToken()) {
-    el.innerHTML = 'You\'re logged in'
+    el.innerHTML = "You're logged in"
     aui.get('/example/api.json', function (err, resp) {
       if (err) return console.error(err)
       el.innerHTML += '<p><code>' + resp.message + '</code></p>'
