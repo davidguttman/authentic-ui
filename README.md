@@ -110,7 +110,7 @@ Optional:
 
 Each of the methods below that take options (`login()`, `signup()`, etc...) accept an option for `styles`. If `styles` is omitted, default styling will be used. To clear styling use `{styles: false}`, and to use custom CSS class name(s), use an object with the mapping. If you were using [Basscss](http://basscss.com), you could do the following:
 
-```
+```js
 {
   box: 'max-width-3 mx-auto border rounded pb2',
   title: 'h3 p2 bold white bg-blue mb2',
