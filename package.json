@@ -14,7 +14,8 @@
     "example": "npm run example-server & npm run example-client",
     "example-server": "node example/server.js",
     "example-client": "wzrd example/index.js",
-    "test": "standard"
+    "deps": "dependency-check . --entry ./index.js && dependency-check . --extra --no-dev --entry ./index.js",
+    "test": "node test/index.js && standard && npm run deps"
   },
   "keywords": [
     "authentication",
@@ -29,7 +30,10 @@
   "devDependencies": {
     "authentic-server": "^0.4.0",
     "browserify": "^12.0.1",
+    "dependency-check": "^2.8.0",
     "standard": "^5.4.1",
+    "tape": "^4.6.3",
+    "tape-run": "^3.0.0",
     "wzrd": "*"
   },
   "dependencies": {
