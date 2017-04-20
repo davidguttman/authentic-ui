@@ -4,5 +4,3 @@ module.exports = Object.keys(styles).reduce(function (acc, k) {
   acc[k] = ''
   return acc
 }, {})
-
-console.log('module.exports', module.exports)
