@@ -105,13 +105,29 @@ Optional:
 
 * `prefix`: defaults to `/auth` -- if you set a custom prefix for your `authentic-server`, use that same prefix here
 * `links`: if provided, AuthenticUI will display links to signup, login, and change-password (when appropriate)
-* `styles`: by default AuthenticUI is styled, but to remove styling you may pass `styles: false`, or pass in an object with your own styles (see `lib/styles.js` for an example)
+
+##### Note on styling:
+
+Each of the methods below that take options (`login()`, `signup()`, etc...) accept an option for `styles`. If `styles` is omitted, default styling will be used. To clear styling use `{styles: false}`, and to use custom CSS class name(s), use an object with the mapping. If you were using [Basscss](http://basscss.com), you could do the following:
+
+```
+{
+  box: 'max-width-3 mx-auto border rounded pb2',
+  title: 'h3 p2 bold white bg-blue mb2',
+  input: 'h4 p1 mb1',
+  error: 'red',
+  submit: 'btn not-rounded bg-blue white m2',
+  disabled: 'bg-silver',
+  links: 'p6',
+  link: 'italic'
+}
+```
 
 ### aui.authToken() ###
 
 Returns the user's `authToken` if one exists/the user is logged in.
 
-### aui.login(onLogin)
+### aui.login([opts,] onLogin)
 
 Returns a login element. Will also call `onLogin` when successfully logged in.
 

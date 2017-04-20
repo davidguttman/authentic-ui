@@ -3,14 +3,14 @@ var find = require('lodash.find')
 var xtend = require('xtend')
 
 var Field = require('./field')
-var styles = require('./styles')
 
 module.exports = function renderForm (state, cb) {
   var defaults = {
     fields: [],
     error: '',
     disabled: false,
-    submitText: 'Submit'
+    submitText: 'Submit',
+    styles: require('./styles-empty')
   }
 
   state = xtend(defaults, state)
@@ -18,9 +18,14 @@ module.exports = function renderForm (state, cb) {
   return el
 
   function render (state) {
+    var styles = state.styles
+
     return yo`<form onsubmit=${onsubmit}>
       ${state.fields.map(function (field, i) {
-        return Field(xtend(field, { disabled: state.disabled }), onchange)
+        return Field(xtend(field, {
+          disabled: state.disabled,
+          styles: styles
+        }), onchange)
       })}
 
       <div class=${styles.error}>

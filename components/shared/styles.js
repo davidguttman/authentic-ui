@@ -18,6 +18,12 @@ var styles = module.exports = csjs`
     box-shadow: rgba(0, 0, 0, 0.247059) 0px 14px 45px, rgba(0, 0, 0, 0.219608) 0px 10px 18px;
   }
 
+  .title {
+    font-size: 120%;
+    font-weight: 600;
+    padding: 15px;
+  }
+
   .input {
     width: 100%;
     height: 36px;

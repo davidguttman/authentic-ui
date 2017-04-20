@@ -23,7 +23,8 @@ module.exports = function confirm (auth, state, onConfirm) {
     links: [
       {text: 'Log In', href: '#/login'},
       {text: 'Create Account', href: '#/signup'}
-    ]
+    ],
+    styles: true
   }
 
   state = xtend(defaults, state)
@@ -41,7 +42,8 @@ module.exports = function confirm (auth, state, onConfirm) {
       title: title,
       message: message,
       error: state.confirmError,
-      links: state.links
+      links: state.links,
+      styles: state.styles
     })
   }
 

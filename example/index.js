@@ -1,5 +1,6 @@
 var AuthenticUI = require('..')
 var qs = require('querystring')
+var insertCss = require('insert-css')
 
 var aui = AuthenticUI({
   server: 'http://localhost:1337',
@@ -37,6 +38,9 @@ function runRoutes (el) {
   if (appState === 'change-password-request') return changePasswordRequestRoute(el)
   if (appState.match(/^change-password/)) return changePasswordRoute(el)
 
+  if (appState === 'login-no-style') return loginRouteNoStyle(el)
+  if (appState === 'login-custom-style') return loginRouteCustomStyle(el)
+
   return loginRoute(el)
 }
 
@@ -47,6 +51,38 @@ function loginRoute (el) {
   }
 
   var form = aui.login(onLogin)
+  el.appendChild(form)
+}
+
+function loginRouteNoStyle (el) {
+  if (aui.authToken()) {
+    window.location.hash = '/protected'
+    return
+  }
+
+  var form = aui.login({styles: false}, onLogin)
+  el.appendChild(form)
+}
+
+function loginRouteCustomStyle (el) {
+  if (aui.authToken()) {
+    window.location.hash = '/protected'
+    return
+  }
+
+  // choose the css class name for each
+  var customStyles = {
+    box: 'max-width-3 mx-auto border rounded pb2',
+    title: 'h3 p2 bold white bg-blue mb2',
+    input: 'h4 p1 mb1',
+    error: 'red',
+    submit: 'btn not-rounded bg-blue white m2',
+    disabled: 'bg-silver',
+    links: 'p6',
+    link: 'italic'
+  }
+
+  var form = aui.login({styles: customStyles}, onLogin)
   el.appendChild(form)
 }
 
@@ -134,7 +170,16 @@ function makeLink (text, url) {
 }
 
 function setStyles () {
-  document.body.style.background = '#eee'
-  document.body.style.fontFamily = 'sans-serif'
-  document.body.style.textAlign = 'center'
+  var link = document.createElement('link')
+  link.href = 'https://unpkg.com/ace-css/css/ace.min.css'
+  link.rel = 'stylesheet'
+  document.head.appendChild(link)
+
+  insertCss(`
+    body {
+      background: #eee;
+      font-family: sans-serif;
+      text-align: center;
+    }
+  `)
 }

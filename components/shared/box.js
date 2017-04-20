@@ -2,16 +2,21 @@ var yo = require('yo-yo')
 var xtend = require('xtend')
 
 var Form = require('./form')
-var styles = require('./styles')
+var emptyStyles = require('./styles-empty')
+var defaultStyles = require('./styles')
 
 module.exports = function (state, cb) {
+  if (!state.styles) state.styles = emptyStyles
+  if (state.styles === true) state.styles = defaultStyles
+
   var defaults = {
     title: 'Log in to Your Account',
     fields: [],
     submitText: 'Submit',
     links: [],
     error: '',
-    _status: 'READY'
+    _status: 'READY',
+    styles: defaultStyles
   }
 
   state = xtend(defaults, state)
@@ -19,8 +24,10 @@ module.exports = function (state, cb) {
   return el
 
   function render (state) {
+    var styles = state.styles
+
     return yo`<div class=${styles.box}>
-      <h4>${state.title}</h4>
+      <div class=${styles.title}>${state.title}</div>
 
       ${ state.message
         ? yo`<div>
@@ -31,7 +38,8 @@ module.exports = function (state, cb) {
           submitText: state.submitText,
           fields: state.fields,
           error: state.error,
-          disabled: state._status === 'FETCHING'
+          disabled: state._status === 'FETCHING',
+          styles: styles
         }, onsubmit)
       }
 

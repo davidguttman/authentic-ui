@@ -1,14 +1,19 @@
 var yo = require('yo-yo')
 var xtend = require('xtend')
 
-var styles = require('./styles')
-
 module.exports = function (state, cb) {
+  var defaults = {
+    styles: require('./styles-empty')
+  }
+
+  state = xtend(defaults, state)
   var el = render(state)
 
   return el
 
   function render (state) {
+    var styles = state.styles
+
     return yo`<div>
       <input
         class='${styles.input} ${state.disabled ? styles.disabled : ''}'

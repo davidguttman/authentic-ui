@@ -17,7 +17,8 @@ module.exports = function login (auth, state, onLogin) {
     links: [
       {text: 'Create Account', href: '#/signup'},
       {text: 'Reset Password', href: '#/change-password-request'}
-    ]
+    ],
+    styles: true
   }
 
   state = xtend(defaults, state)
@@ -28,7 +29,8 @@ module.exports = function login (auth, state, onLogin) {
     return Box({
       title: state.title,
       fields: state.fields,
-      links: state.links
+      links: state.links,
+      styles: state.styles
     }, onsubmit)
   }
 

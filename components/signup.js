@@ -23,7 +23,8 @@ module.exports = function signup (auth, state, onSignup) {
     links: [
       {text: 'Log In', href: '#/login'},
       {text: 'Reset Password', href: '#/change-password-request'}
-    ]
+    ],
+    styles: true
   }
 
   state = xtend(defaults, state)
@@ -36,7 +37,8 @@ module.exports = function signup (auth, state, onSignup) {
       title: state.title,
       fields: state.fields,
       submitText: state.submitText,
-      links: state.links
+      links: state.links,
+      styles: state.styles
     }, onsubmit)
   }
 

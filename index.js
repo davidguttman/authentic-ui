@@ -21,7 +21,6 @@ var AuthenticUI = module.exports = function (opts) {
   this.auth.on('authToken', this._set.bind(this, 'authToken'))
   this.auth.on('email', this._set.bind(this, 'email'))
   this.links = opts.links || {}
-  this.styles = opts.styles
 
   this.get = this.auth.get.bind(this.auth)
   this.post = this.auth.post.bind(this.auth)
