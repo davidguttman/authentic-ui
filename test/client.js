@@ -5,9 +5,9 @@ var AuthenticUI = require('..')
 var aui = AuthenticUI({
   server: 'http://localhost:1338',
   links: {
-    login: '#/login',
-    signup: '#/signup',
-    changePasswordRequest: '#/change-password-request'
+    login: '#/login-test',
+    signup: '#/signup-test',
+    changePasswordRequest: '#/change-password-request-test'
   }
 })
 
@@ -25,8 +25,8 @@ tape('should be able to sign up', function (t) {
   var urls = map(links, function (el) { return el.hash })
 
   t.deepEqual(urls, [
-    '#/login',
-    '#/change-password-request'
+    '#/login-test',
+    '#/change-password-request-test'
   ], 'links should match')
 
   t.end()

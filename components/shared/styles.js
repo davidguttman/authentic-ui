@@ -19,9 +19,10 @@ var styles = module.exports = csjs`
   }
 
   .title {
-    font-size: 120%;
-    font-weight: 600;
-    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 1.33em;
+    margin-bottom: 1.33em;
   }
 
   .input {

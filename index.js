@@ -1,12 +1,14 @@
-var Authentic = require('authentic-client')
 var xtend = require('xtend')
+var Authentic = require('authentic-client')
 var Wildemitter = require('wildemitter')
 
-var login = require('./components/login')
-var signup = require('./components/signup')
-var confirm = require('./components/confirm')
-var changePassword = require('./components/change-password')
-var changePasswordRequest = require('./components/change-password-request')
+var components = {
+  login: require('./components/login'),
+  signup: require('./components/signup'),
+  confirm: require('./components/confirm'),
+  changePassword: require('./components/change-password'),
+  changePasswordRequest: require('./components/change-password-request')
+}
 
 var ls = window.localStorage
 
@@ -20,17 +22,12 @@ var AuthenticUI = module.exports = function (opts) {
   }))
   this.auth.on('authToken', this._set.bind(this, 'authToken'))
   this.auth.on('email', this._set.bind(this, 'email'))
-  this.links = opts.links || {}
+
+  this.links = opts.links || false
+  this.styles = opts.styles || true
 
   this.get = this.auth.get.bind(this.auth)
   this.post = this.auth.post.bind(this.auth)
-
-  this.login = login.bind(null, this.auth)
-  this.logout = this.auth.logout.bind(this.auth)
-  this.signup = signup.bind(null, this.auth)
-  this.confirm = confirm.bind(null, this.auth)
-  this.changePassword = changePassword.bind(null, this.auth)
-  this.changePasswordRequest = changePasswordRequest.bind(null, this.auth)
 }
 
 Wildemitter.mixin(AuthenticUI)
@@ -38,6 +35,26 @@ Wildemitter.mixin(AuthenticUI)
 AuthenticUI.prototype.authToken = function () { return this.auth.authToken }
 AuthenticUI.prototype._set = set
 AuthenticUI.prototype._get = get
+
+AuthenticUI.prototype.logout = function (cb) {
+  this.auth.logout()
+  if (cb) cb()
+}
+
+Object.keys(components).forEach(function (type) {
+  AuthenticUI.prototype[type] = function (opts, cb) {
+    if (typeof opts === 'function') {
+      cb = opts
+      opts = {}
+    }
+
+    return components[type](xtend({
+      auth: this.auth,
+      links: this.links,
+      styles: this.styles
+    }, opts), cb)
+  }
+})
 
 function set (key, val) {
   var lsKey = keyPrefix + key

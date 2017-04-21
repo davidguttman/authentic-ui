@@ -2,8 +2,9 @@ var yo = require('yo-yo')
 var xtend = require('xtend')
 
 var Box = require('./shared/box')
+var createLinks = require('./shared/create-links')
 
-module.exports = function signup (auth, state, onSignup) {
+module.exports = function signup (state, onSignup) {
   state = state || {}
   if (!state.subject) throw new Error('subject is required')
   if (!state.confirmUrl) throw new Error('confirmUrl is required')
@@ -20,14 +21,19 @@ module.exports = function signup (auth, state, onSignup) {
       { name: 'email', placeholder: 'Email' },
       { name: 'password', placeholder: 'Password', type: 'password' }
     ],
-    links: [
-      {text: 'Log In', href: '#/login'},
-      {text: 'Reset Password', href: '#/change-password-request'}
-    ],
+    links: {
+      login: {text: 'Log In', href: '#/login'},
+      changePasswordRequest: {
+        text: 'Reset Password', href: '#/change-password-request'
+      }
+    },
     styles: true
   }
 
   state = xtend(defaults, state)
+
+  var linkTypes = ['login', 'changePasswordRequest']
+  var links = createLinks(linkTypes, state.links, defaults.links)
 
   var el = render(state)
   return el
@@ -37,7 +43,7 @@ module.exports = function signup (auth, state, onSignup) {
       title: state.title,
       fields: state.fields,
       submitText: state.submitText,
-      links: state.links,
+      links: links,
       styles: state.styles
     }, onsubmit)
   }
@@ -49,7 +55,7 @@ module.exports = function signup (auth, state, onSignup) {
       subject: state.subject
     })
 
-    auth.signup(opts, function (err, result) {
+    state.auth.signup(opts, function (err, result) {
       if (err) return cb(err)
 
       if (onSignup) return onSignup(null, result)
@@ -57,7 +63,8 @@ module.exports = function signup (auth, state, onSignup) {
       yo.update(el, Box({
         title: state.successTitle,
         message: state.successMessage,
-        links: state.links
+        styles: state.styles,
+        links: links
       }))
     })
   }

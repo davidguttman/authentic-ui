@@ -2,9 +2,9 @@ var yo = require('yo-yo')
 var xtend = require('xtend')
 
 var Box = require('./shared/box')
+var createLinks = require('./shared/create-links')
 
-module.exports = function changePasswordRequest (auth, state, onReset) {
-  state = state || {}
+module.exports = function changePasswordRequest (state, onReset) {
   if (!state.email) throw new Error('email is required')
   if (!state.changeToken) throw new Error('changeToken is required')
 
@@ -16,14 +16,17 @@ module.exports = function changePasswordRequest (auth, state, onReset) {
     successTitle: 'Password Set',
     successMessage: 'Your new password has been set. Logging you in...',
     fields: [ { placeholder: 'Password', name: 'password', type: 'password' } ],
-    links: [
-      {text: 'Log In', href: '#/login'},
-      {text: 'Create Account', href: '#/signup'}
-    ],
+    links: {
+      login: {text: 'Log In', href: '#/login'},
+      signup: {text: 'Create Account', href: '#/signup'}
+    },
     styles: true
   }
 
   state = xtend(defaults, state)
+
+  var linkTypes = ['signup', 'changePasswordRequest']
+  var links = createLinks(linkTypes, state.links, defaults.links)
 
   var el = render(state)
   return el
@@ -33,7 +36,7 @@ module.exports = function changePasswordRequest (auth, state, onReset) {
       title: state.title,
       fields: state.fields,
       submitText: state.submitText,
-      links: state.links,
+      links: links,
       styles: state.styles
     }, onsubmit)
   }
@@ -44,7 +47,7 @@ module.exports = function changePasswordRequest (auth, state, onReset) {
       changeToken: state.changeToken
     })
 
-    auth.changePassword(opts, function (err, result) {
+    state.auth.changePassword(opts, function (err, result) {
       if (err) return next(err)
 
       if (onReset) onReset(null, result)
@@ -52,7 +55,8 @@ module.exports = function changePasswordRequest (auth, state, onReset) {
       yo.update(el, Box({
         title: state.successTitle,
         message: state.successMessage,
-        links: state.links
+        links: links,
+        styles: state.styles
       }))
     })
   }

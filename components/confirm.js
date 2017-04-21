@@ -2,9 +2,9 @@ var yo = require('yo-yo')
 var xtend = require('xtend')
 
 var Box = require('./shared/box')
+var createLinks = require('./shared/create-links')
 
-module.exports = function confirm (auth, state, onConfirm) {
-  state = state || {}
+module.exports = function confirm (state, onConfirm) {
   if (!state.email) throw new Error('email is required')
   if (!state.confirmToken) throw new Error('confirmToken is required')
 
@@ -20,10 +20,10 @@ module.exports = function confirm (auth, state, onConfirm) {
     failureMessage: 'Your account could not be confirmed.',
     successTitle: 'Account Confirmed',
     successMessage: 'Your account has been confirmed. Logging you in...',
-    links: [
-      {text: 'Log In', href: '#/login'},
-      {text: 'Create Account', href: '#/signup'}
-    ],
+    links: {
+      login: {text: 'Log In', href: '#/login'},
+      signup: {text: 'Create Account', href: '#/signup'}
+    },
     styles: true
   }
 
@@ -35,6 +35,9 @@ module.exports = function confirm (auth, state, onConfirm) {
   return el
 
   function render (state) {
+    var linkTypes = ['login', 'signup']
+    var links = createLinks(linkTypes, state.links, defaults.links)
+
     var title = state[state.confirmState + 'Title']
     var message = state[state.confirmState + 'Message']
 
@@ -42,7 +45,7 @@ module.exports = function confirm (auth, state, onConfirm) {
       title: title,
       message: message,
       error: state.confirmError,
-      links: state.links,
+      links: links,
       styles: state.styles
     })
   }
@@ -53,7 +56,7 @@ module.exports = function confirm (auth, state, onConfirm) {
       confirmToken: state.confirmToken
     }
 
-    auth.confirm(opts, function (err, result) {
+    state.auth.confirm(opts, function (err, result) {
       if (err) {
         state.confirmState = 'failure'
         state.confirmError = err.message
