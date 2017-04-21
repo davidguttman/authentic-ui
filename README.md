@@ -104,11 +104,28 @@ var aui = AuthenticUI({
 Optional:
 
 * `prefix`: defaults to `/auth` -- if you set a custom prefix for your `authentic-server`, use that same prefix here
-* `links`: if provided, AuthenticUI will display links to signup, login, and change-password (when appropriate)
+* `links`: AuthenticUI can display links to signup, login, and change-password.
+  * If omitted, defaults will be used (`#/login`, `#/signup`, etc...).
+  * To hide these links use `{links: false}`.
+  * If you'd like to customize them, use an object like one of the following:
 
-##### Note on styling:
+```js
+{
+  signup: '#/signup', // text will be "Sign Up"
+  login: '#/login', // text will be "Log In"
+  changePasswordRequest: '#/change-password-request' // text will be "Reset Password"
+}
 
-Each of the methods below that take options (`login()`, `signup()`, etc...) accept an option for `styles`. If `styles` is omitted, default styling will be used. To clear styling use `{styles: false}`, and to use custom CSS class name(s), use an object with the mapping. If you were using [Basscss](http://basscss.com), you could do the following:
+// or
+
+{
+  signup: {href: '#/new-account', text: 'New Account'},
+  login: {href: '#/sign-in', text: 'Sign In'},
+  changePasswordRequest: {href: '#/forgot', text: 'Forgot something?'}
+}
+```
+
+* `styles`: If `styles` is omitted, default styling will be used. To clear styling use `{styles: false}`, and to use custom CSS class name(s), use an object that maps components to a string of class names. For example, if you were using [Basscss](http://basscss.com), you could do the following:
 
 ```js
 {
@@ -122,6 +139,8 @@ Each of the methods below that take options (`login()`, `signup()`, etc...) acce
   link: 'italic'
 }
 ```
+
+See `/components/shared/styles.js` for the components and their default styles.
 
 ### aui.authToken() ###
 
