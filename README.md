@@ -157,7 +157,7 @@ var el =  aui.login(function (err, result) {
 })
 ```
 
-### aui.signup(opts)
+### aui.signup(opts[, onSignup])
 
 Returns a signup element. Options are passed through `authentic-client` to `authentic-server`. Will display a message to check email after successful submission.
 
@@ -183,7 +183,7 @@ var el = aui.confirm({
 })
 ```
 
-### aui.changePasswordRequest(opts)
+### aui.changePasswordRequest(opts[, onReset])
 
 Returns a change-password-request element. Options are passed through `authentic-client` to `authentic-server`. Will display a message to check email after successful submission.
 
