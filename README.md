@@ -163,7 +163,8 @@ Returns a signup element. Options are passed through `authentic-client` to `auth
 
 ```js
 var el = aui.signup({
-  confirmUrl: window.location.origin + '#/confirm'
+  confirmUrl: window.location.origin + '#/confirm',
+  provide: { /* use this to send additional properties to authentic-server */ }
 })
 ```
 
@@ -189,7 +190,8 @@ Returns a change-password-request element. Options are passed through `authentic
 
 ```js
 var el = aui.changePasswordRequest({
-  changeUrl: window.location.origin + '#/change-password'
+  changeUrl: window.location.origin + '#/change-password',
+  provide: { /* use this to send additional properties to authentic-server */ }
 })
 ```
 

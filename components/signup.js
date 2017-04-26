@@ -13,6 +13,7 @@ module.exports = function signup (state, onSignup) {
     confirmUrl: null,
     from: null,
     subject: null,
+    provide: null,
     title: 'Create Your Account',
     submitText: 'Sign Up',
     successTitle: 'Thanks!',
@@ -49,7 +50,7 @@ module.exports = function signup (state, onSignup) {
   }
 
   function onsubmit (data, cb) {
-    var opts = xtend(data, {
+    var opts = xtend(data, state.provide, {
       confirmUrl: state.confirmUrl,
       from: state.from,
       subject: state.subject

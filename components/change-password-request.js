@@ -12,6 +12,7 @@ module.exports = function changePasswordRequest (state, onReset) {
     changeUrl: null,
     from: null,
     subject: null,
+    provide: null,
     title: 'Reset Your Password',
     submitText: 'Send Reset Code',
     successTitle: 'Reset Code Sent!',
@@ -43,7 +44,7 @@ module.exports = function changePasswordRequest (state, onReset) {
   }
 
   function onsubmit (data, next) {
-    var opts = xtend(data, {
+    var opts = xtend(data, state.provide, {
       changeUrl: state.changeUrl,
       from: state.from,
       subject: state.subject
