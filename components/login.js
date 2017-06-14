@@ -4,6 +4,7 @@ var Box = require('./shared/box')
 var createLinks = require('./shared/create-links')
 
 module.exports = function login (state, onLogin) {
+  var _onLogin = typeof onLogin === 'function' ? onLogin : function () { }
   var defaults = {
     title: 'Log in to Your Account',
     fields: [
@@ -16,7 +17,8 @@ module.exports = function login (state, onLogin) {
         text: 'Reset Password', href: '#/change-password-request'
       }
     },
-    styles: true
+    styles: true,
+    submitText: 'Login'
   }
 
   state = xtend(defaults, state)
@@ -31,7 +33,8 @@ module.exports = function login (state, onLogin) {
       title: state.title,
       fields: state.fields,
       links: links,
-      styles: state.styles
+      styles: state.styles,
+      submitText: state.submitText
     }, onsubmit)
   }
 
@@ -39,7 +42,7 @@ module.exports = function login (state, onLogin) {
     state.auth.login(data, function (err, result) {
       if (err) return cb(err)
 
-      onLogin(null, result)
+      _onLogin(null, result)
     })
   }
 }
