@@ -41,8 +41,7 @@ var query = qs.parse(window.location.search.slice(1))
 document.body.appendChild(
   aui.confirm({
     email: query.email,
-    confirmToken: query.confirmToken,
-    confirmDelay: 5000
+    confirmToken: query.confirmToken
   }, function onLogin (err, result) {
     // logged in, now redirect to main content
     window.location.hash = '/main-content'
@@ -63,8 +62,7 @@ var query = qs.parse(window.location.search.slice(1))
 document.body.appendChild(
   aui.changePassword({
     email: query.email,
-    changeToken: query.changeToken,
-    confirmDelay: 5000
+    changeToken: query.changeToken
   }, function onLogin (err, result) {
     // password changed and logged in, now redirect to main content
     window.location.hash = '/main-content'
@@ -176,8 +174,7 @@ Returns a confirm element. Will display a message if there's an error, otherwise
 var query = require('querystring').parse(window.location.search.slice(1))
 var el = aui.confirm({
   email: query.email,
-  confirmToken: query.confirmToken,
-  confirmDelay: 5000
+  confirmToken: query.confirmToken
 }, function onLogin (err, result) {
   // logged in, now redirect to main content
   window.location.hash = '/main-content'
@@ -203,8 +200,7 @@ Returns a change-password element. Required options: `email` and `changeToken`. 
 var query = require('querystring').parse(window.location.search.slice(1))
 var el = aui.changePassword({
   email: query.email,
-  changeToken: query.changeToken,
-  confirmDelay: 5000
+  changeToken: query.changeToken
 }, function onLogin (err, result) {
   // password changed and logged in, now redirect to main content
   window.location.hash = '/main-content'
