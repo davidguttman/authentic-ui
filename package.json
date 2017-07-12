@@ -28,11 +28,12 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "authentic-server": "^0.4.0",
-    "browserify": "^12.0.1",
-    "dependency-check": "^2.8.0",
+    "authentic-server": "^0.4.2",
+    "browserify": "^14.4.0",
+    "dependency-check": "^2.9.1",
+    "eslint-plugin-react": "^7.1.0",
     "standard": "^5.4.1",
-    "tape": "^4.6.3",
+    "tape": "^4.7.0",
     "tape-run": "^3.0.0",
     "wzrd": "*"
   },
@@ -43,6 +44,6 @@
     "lodash.find": "^4.6.0",
     "wildemitter": "^1.2.0",
     "xtend": "^4.0.1",
-    "yo-yo": "^1.4.0"
+    "yo-yo": "^1.4.1"
   }
 }
