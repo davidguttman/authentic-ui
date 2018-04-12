@@ -28,9 +28,9 @@ module.exports = function renderForm (state, cb) {
         }), onchange)
       })}
 
-      <div class=${styles.error}>
-        ${state.error}
-      </div>
+      ${!state.error ? ''
+        : yo`<div class=${styles.error}>${state.error}</div>
+      `}
 
       <div>
         <button
