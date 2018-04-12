@@ -23,6 +23,7 @@ var AuthenticUI = module.exports = function (opts) {
   this.auth.on('authToken', this._set.bind(this, 'authToken'))
   this.auth.on('email', this._set.bind(this, 'email'))
 
+  this.titles = opts.titles || {}
   this.links = opts.links || false
   this.styles = true
   if (opts.styles) this.styles = opts.styles
@@ -53,6 +54,7 @@ Object.keys(components).forEach(function (type) {
     return components[type](xtend({
       auth: this.auth,
       links: this.links,
+      titles: this.titles,
       styles: this.styles
     }, opts), cb)
   }

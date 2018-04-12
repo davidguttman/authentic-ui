@@ -102,6 +102,15 @@ var aui = AuthenticUI({
 Optional:
 
 * `prefix`: defaults to `/auth` -- if you set a custom prefix for your `authentic-server`, use that same prefix here
+* `titles`: AuthenticUI can display custom titles for signup, login, and change-password.
+  * If omitted, defaults will be used (`Log in to your account`, etc...).
+```js
+{
+  signup: 'Sign up now!',
+  login: 'Log in here 👇',
+  changePasswordRequest: 'Let\'s get you a new password'
+}
+```
 * `links`: AuthenticUI can display links to signup, login, and change-password.
   * If omitted, defaults will be used (`#/login`, `#/signup`, etc...).
   * To hide these links use `{links: false}`.

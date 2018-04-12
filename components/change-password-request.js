@@ -35,7 +35,7 @@ module.exports = function changePasswordRequest (state, onReset) {
 
   function render (state) {
     return Box({
-      title: state.title,
+      title: state.titles.changePasswordRequest || state.title,
       fields: state.fields,
       submitText: state.submitText,
       links: links,

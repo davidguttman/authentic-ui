@@ -30,7 +30,7 @@ module.exports = function login (state, onLogin) {
     var links = createLinks(linkTypes, state.links, defaults.links)
 
     return Box({
-      title: state.title,
+      title: state.titles.login || state.title,
       fields: state.fields,
       links: links,
       styles: state.styles,

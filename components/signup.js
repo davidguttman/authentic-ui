@@ -41,7 +41,7 @@ module.exports = function signup (state, onSignup) {
 
   function render (state) {
     return Box({
-      title: state.title,
+      title: state.titles.signup || state.title,
       fields: state.fields,
       submitText: state.submitText,
       links: links,
