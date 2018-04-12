@@ -21,7 +21,7 @@ module.exports = function (state, cb) {
         placeholder=${state.placeholder || ''}
         value=${state.value || ''}
         disabled=${state.disabled}
-        type=${state.type || ''}
+        type=${state.type || 'text'}
         onchange=${onchange} />
     </div>`
   }
