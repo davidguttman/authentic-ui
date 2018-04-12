@@ -15,7 +15,7 @@
     "example-server": "node example/server.js",
     "example-client": "wzrd example/index.js",
     "deps": "dependency-check . --entry ./index.js && dependency-check . --extra --no-dev --entry ./index.js",
-    "test": "node test/index.js && standard && npm run deps"
+    "test": "standard && npm run deps"
   },
   "keywords": [
     "authentication",
@@ -33,7 +33,6 @@
     "dependency-check": "^2.8.0",
     "standard": "^5.4.1",
     "tape": "^4.6.3",
-    "tape-run": "^3.0.0",
     "wzrd": "*"
   },
   "dependencies": {
