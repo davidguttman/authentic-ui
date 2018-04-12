@@ -24,7 +24,9 @@ var AuthenticUI = module.exports = function (opts) {
   this.auth.on('email', this._set.bind(this, 'email'))
 
   this.links = opts.links || false
-  this.styles = opts.styles || true
+  this.styles = true
+  if (opts.styles) this.styles = opts.styles
+  if (opts.styles === false) this.styles = false
 
   this.get = this.auth.get.bind(this.auth)
   this.post = this.auth.post.bind(this.auth)
