@@ -32,7 +32,9 @@ module.exports = function (state, cb) {
       ${ state.message
         ? yo`<div>
             <div>${state.message}</div>
-            <div class=${styles.error}>${state.error}</div>
+            ${!state.error ? ''
+              : yo`<div class=${styles.error}>${state.error}</div>
+            `}
           </div>`
         : Form({
           submitText: state.submitText,
