@@ -1,4 +1,4 @@
-var yo = require('yo-yo')
+var yo = require('@dguttman/yo-yo')
 var xtend = require('xtend')
 
 var Box = require('./shared/box')

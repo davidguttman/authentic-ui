@@ -36,12 +36,12 @@
     "wzrd": "*"
   },
   "dependencies": {
+    "@dguttman/yo-yo": "^1.4.2",
     "authentic-client": "^1.2.2",
     "csjs": "^1.1.0",
     "insert-css": "^2.0.0",
     "lodash.find": "^4.6.0",
     "wildemitter": "^1.2.0",
-    "xtend": "^4.0.1",
-    "yo-yo": "^1.4.0"
+    "xtend": "^4.0.1"
   }
 }

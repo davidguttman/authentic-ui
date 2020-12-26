@@ -1,4 +1,4 @@
-var yo = require('yo-yo')
+var yo = require('@dguttman/yo-yo')
 var find = require('lodash.find')
 var xtend = require('xtend')
 
