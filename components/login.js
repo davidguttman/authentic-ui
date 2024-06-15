@@ -3,6 +3,8 @@ var xtend = require('xtend')
 var Box = require('./shared/box')
 var createLinks = require('./shared/create-links')
 
+var REDIRECT_PARAM = 'jwt'
+
 module.exports = function login (state, onLogin) {
   var _onLogin = typeof onLogin === 'function' ? onLogin : function () { }
   var defaults = {
@@ -23,19 +25,44 @@ module.exports = function login (state, onLogin) {
 
   state = xtend(defaults, state)
   var el = render(state)
+
+  var query = new URLSearchParams(window.location.search)
+  var jwt = query.get(REDIRECT_PARAM)
+  if (jwt) {
+    var payload = decodeJwt(jwt)
+    var email = payload.email
+    state.auth.setEmail(email)
+    state.auth.setAuthToken(jwt)
+
+    query.delete(REDIRECT_PARAM)
+    window.history.replaceState({}, '', `?${query.toString()}`)
+
+    _onLogin(null, { data: { authToken: jwt, email } })
+  }
+
   return el
 
   function render (state) {
     var linkTypes = ['signup', 'changePasswordRequest']
     var links = createLinks(linkTypes, state.links, defaults.links)
 
-    return Box({
-      title: state.titles.login || state.title,
-      fields: state.fields,
-      links: links,
-      styles: state.styles,
-      submitText: state.submitText
-    }, onsubmit)
+    var googleSignInUrl = state.googleSignIn
+      ? `${state.auth.googleSignInUrl}?redirectUrl=${encodeURIComponent(
+          window.location.href
+        )}&redirectParam=${REDIRECT_PARAM}`
+      : null
+
+    return Box(
+      {
+        title: state.titles.login || state.title,
+        fields: state.fields,
+        links: links,
+        styles: state.styles,
+        submitText: state.submitText,
+        googleSignInUrl
+      },
+      onsubmit
+    )
   }
 
   function onsubmit (data, cb) {
@@ -45,4 +72,10 @@ module.exports = function login (state, onLogin) {
       _onLogin(null, result)
     })
   }
+}
+
+function decodeJwt (token) {
+  var parts = token.split('.')
+  var payload = atob(parts[1].replace(/_/g, '/').replace(/-/g, '+'))
+  return JSON.parse(payload)
 }

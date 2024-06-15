@@ -75,6 +75,10 @@ var styles = module.exports = csjs`
     color: #aaa;
     font-weight: 100;
   }
+
+  .googleSignIn {
+    margin-top: 20px;
+  }
 `
 
 insert(csjs.getCss(styles))

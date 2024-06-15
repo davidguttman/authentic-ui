@@ -28,7 +28,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "authentic-server": "^0.4.0",
+    "authentic-server": "^3.0.0",
     "browserify": "^12.0.1",
     "dependency-check": "^2.8.0",
     "standard": "^5.4.1",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@dguttman/yo-yo": "^1.4.2",
-    "authentic-client": "^1.2.2",
+    "authentic-client": "^2.2.0",
     "csjs": "^1.1.0",
     "insert-css": "^2.0.0",
     "lodash.find": "^4.6.0",

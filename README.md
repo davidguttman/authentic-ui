@@ -87,7 +87,8 @@ var aui = AuthenticUI({
     signup: '#/signup',
     login: '#/login',
     changePasswordRequest: '#/change-password-request'
-  }
+  },
+  googleSignIn: false
 })
 
 // now you can do aui.signup()/login()/etc...
@@ -149,9 +150,15 @@ Optional:
 
 See `/components/shared/styles.js` for the components and their default styles.
 
+* `googleSignIn`: If `googleSignIn` is `true`, this will add a "Sign in with Google" link to the bottom of the Log In page. Your `authentic-server` needs to have this set up to work.
+
 ### aui.authToken() ###
 
 Returns the user's `authToken` if one exists/the user is logged in.
+
+### aui.email() ###
+
+Returns the user's `email` if one exists/the user is logged in.
 
 ### aui.login([opts,] onLogin)
 
