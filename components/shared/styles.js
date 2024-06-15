@@ -77,7 +77,6 @@ var styles = module.exports = csjs`
   }
 
   .googleSignIn {
-    margin-top: 20px;
   }
 `
 

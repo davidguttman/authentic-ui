@@ -2,6 +2,7 @@ var yo = require('@dguttman/yo-yo')
 var xtend = require('xtend')
 
 var Form = require('./form')
+var google = require('./google')
 var emptyStyles = require('./styles-empty')
 var defaultStyles = require('./styles')
 
@@ -61,10 +62,9 @@ module.exports = function (state, cb) {
 
       ${state.googleSignInUrl
         ? yo`<div class=${styles.googleSignIn}>
-          <a href='${state.googleSignInUrl}' class=${styles.link}>
-            Sign in with Google
-          </a>
-        </div>`
+          ${google({url: state.googleSignInUrl})}
+        </div>
+        `
         : ''}
     </div>`
   }
