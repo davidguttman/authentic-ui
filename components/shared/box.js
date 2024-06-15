@@ -58,6 +58,14 @@ module.exports = function (state, cb) {
           return acc
         }, [])}
       </div>
+
+      ${state.googleSignInUrl
+        ? yo`<div class=${styles.googleSignIn}>
+          <a href='${state.googleSignInUrl}' class=${styles.link}>
+            Sign in with Google
+          </a>
+        </div>`
+        : ''}
     </div>`
   }
 

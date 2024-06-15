@@ -23,6 +23,7 @@ var AuthenticUI = module.exports = function (opts) {
   this.auth.on('authToken', this._set.bind(this, 'authToken'))
   this.auth.on('email', this._set.bind(this, 'email'))
 
+  this.googleSignIn = opts.googleSignIn || false
   this.titles = opts.titles || {}
   this.links = opts.links || false
   this.styles = true
@@ -36,6 +37,7 @@ var AuthenticUI = module.exports = function (opts) {
 Wildemitter.mixin(AuthenticUI)
 
 AuthenticUI.prototype.authToken = function () { return this.auth.authToken }
+AuthenticUI.prototype.email = function () { return this.auth.email }
 AuthenticUI.prototype._set = set
 AuthenticUI.prototype._get = get
 
@@ -55,7 +57,8 @@ Object.keys(components).forEach(function (type) {
       auth: this.auth,
       links: this.links,
       titles: this.titles,
-      styles: this.styles
+      styles: this.styles,
+      googleSignIn: this.googleSignIn
     }, opts), cb)
   }
 })
