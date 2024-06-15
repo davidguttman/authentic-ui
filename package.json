@@ -1,6 +1,6 @@
 {
   "name": "authentic-ui",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Authentic UI is a set of client side views that use authentic-client to provide an easy signup and authentication flow.",
   "main": "index.js",
   "repository": {
