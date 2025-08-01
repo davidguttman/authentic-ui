@@ -35,7 +35,8 @@ module.exports = function login (state, onLogin) {
     state.auth.setAuthToken(jwt)
 
     query.delete(REDIRECT_PARAM)
-    window.history.replaceState({}, '', `?${query.toString()}`)
+    var queryString = query.toString()
+    window.history.replaceState({}, '', queryString ? `?${queryString}` : window.location.pathname)
 
     _onLogin(null, { data: { authToken: jwt, email } })
   }
