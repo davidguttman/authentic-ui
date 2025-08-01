@@ -74,6 +74,46 @@ aui.logout() // instant
 
 ```
 
+## Auto-Retry Feature ##
+
+Enable intelligent authentication fallbacks that automatically switch between login and signup:
+
+```js
+var AuthenticUI = require('authentic-ui')
+
+var aui = AuthenticUI({
+  server: 'http://authenticserver.com',
+  autoRetry: true, // Enable auto-retry
+  autoRetryDefaults: {
+    confirmUrl: window.location.origin + '#/confirm',
+    subject: 'Welcome! Your account has been created.',
+    from: 'MyApp <hello@myapp.com>'
+  }
+})
+
+// Login attempt with non-existent email will automatically create account
+document.body.appendChild(
+  aui.login(function (err, result) {
+    if (err) return console.error(err)
+    // This fires whether login succeeded OR auto-signup succeeded
+    console.log('Authenticated successfully!')
+  })
+)
+
+// Signup attempt with existing email will automatically log in
+document.body.appendChild(
+  aui.signup({
+    confirmUrl: window.location.origin + '#/confirm',
+    subject: 'Welcome!'
+  }, function (err, result) {
+    if (err) return console.error(err) 
+    // This fires whether signup succeeded OR auto-login succeeded
+    console.log('Authenticated successfully!')
+  })
+)
+```
+
+
 ## API ##
 
 ### AuthenticUI(opts) ###
@@ -151,6 +191,20 @@ Optional:
 See `/components/shared/styles.js` for the components and their default styles.
 
 * `googleSignIn`: If `googleSignIn` is `true`, this will add a "Sign in with Google" link to the bottom of the Log In page. Your `authentic-server` needs to have this set up to work.
+
+* `autoRetry`: If `autoRetry` is `true`, enables intelligent fallback behavior:
+  - When login fails because email doesn't exist → automatically retry as signup
+  - When signup fails because email already exists → automatically retry as login
+  - Default: `false` (opt-in feature)
+
+* `autoRetryDefaults`: Configuration for signup fields when auto-retrying from login:
+```js
+{
+  confirmUrl: window.location.origin + window.location.pathname + '#/confirm',
+  subject: 'Welcome! Please confirm your account',
+  from: null // Uses server default
+}
+```
 
 ### aui.authToken() ###
 

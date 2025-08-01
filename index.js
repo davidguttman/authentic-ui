@@ -30,6 +30,16 @@ var AuthenticUI = module.exports = function (opts) {
   if (opts.styles) this.styles = opts.styles
   if (opts.styles === false) this.styles = false
 
+  // Auto-retry configuration
+  this.autoRetry = opts.autoRetry || false
+  this.autoRetryDefaults = xtend({
+    confirmUrl: (typeof window !== 'undefined' ? 
+      window.location.origin + window.location.pathname + '#/confirm' : 
+      '#/confirm'),
+    subject: 'Welcome! Please confirm your account',
+    from: null
+  }, opts.autoRetryDefaults || {})
+
   this.get = this.auth.get.bind(this.auth)
   this.post = this.auth.post.bind(this.auth)
 }
@@ -58,7 +68,9 @@ Object.keys(components).forEach(function (type) {
       links: this.links,
       titles: this.titles,
       styles: this.styles,
-      googleSignIn: this.googleSignIn
+      googleSignIn: this.googleSignIn,
+      autoRetry: this.autoRetry,
+      autoRetryDefaults: this.autoRetryDefaults
     }, opts), cb)
   }
 })

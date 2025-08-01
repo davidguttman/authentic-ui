@@ -3,6 +3,7 @@ var xtend = require('xtend')
 
 var Box = require('./shared/box')
 var createLinks = require('./shared/create-links')
+var autoRetry = require('./shared/auto-retry')
 
 module.exports = function signup (state, onSignup) {
   state = state || {}
@@ -53,7 +54,7 @@ module.exports = function signup (state, onSignup) {
     // UI-specific properties that shouldn't be sent to server
     var uiProps = [
       'title', 'submitText', 'successTitle', 'successMessage', 
-      'fields', 'links', 'styles', 'titles', 'auth'
+      'fields', 'links', 'styles', 'titles', 'auth', 'autoRetry', 'autoRetryDefaults'
     ]
     
     // Start with form data, then add all non-UI state properties
@@ -67,7 +68,13 @@ module.exports = function signup (state, onSignup) {
     })
 
     state.auth.signup(opts, function (err, result) {
-      if (err) return cb(err)
+      if (err) {
+        // Check if auto-retry is enabled and this error should trigger login
+        if (state.autoRetry && autoRetry.shouldRetryAsLogin(err)) {
+          return performLoginRetry(data, cb, err)
+        }
+        return cb(err)
+      }
 
       if (onSignup) return onSignup(null, result)
 
@@ -78,5 +85,35 @@ module.exports = function signup (state, onSignup) {
         links: links
       }))
     })
+  }
+
+  function performLoginRetry(formData, cb, originalErr) {
+    // Show user what's happening - this creates a "fake error" to update UI
+    var retryError = new Error('Email already exists, logging you in instead...')
+    retryError.isRetrying = true
+    setTimeout(function() {
+      cb(retryError)
+    }, 100)
+    
+    // Small delay then attempt login
+    setTimeout(function() {
+      state.auth.login(formData, function (err, result) {
+        if (err) {
+          // If login also fails, show the login error
+          return cb(err)
+        }
+        
+        // Success! Call the original signup callback if it exists
+        if (onSignup) return onSignup(null, result)
+        
+        // Or show success message
+        yo.update(el, Box({
+          title: 'Logged In!',
+          message: 'Welcome back! You have been logged in.',
+          styles: state.styles,
+          links: links
+        }))
+      })
+    }, 1000)
   }
 }
