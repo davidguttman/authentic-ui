@@ -1,3 +1,4 @@
+/* global URLSearchParams, atob */
 var xtend = require('xtend')
 
 var Box = require('./shared/box')

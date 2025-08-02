@@ -52,13 +52,12 @@ module.exports = function signup (state, onSignup) {
   function onsubmit (data, cb) {
     // UI-specific properties that shouldn't be sent to server
     var uiProps = [
-      'title', 'submitText', 'successTitle', 'successMessage', 
+      'title', 'submitText', 'successTitle', 'successMessage',
       'fields', 'links', 'styles', 'titles', 'auth'
     ]
-    
+
     // Start with form data, then add all non-UI state properties
     var opts = xtend(data, state.provide)
-    
     // Add all state properties except UI-specific ones
     Object.keys(state).forEach(function (key) {
       if (uiProps.indexOf(key) === -1 && state[key] != null) {
